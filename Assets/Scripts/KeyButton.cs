@@ -7,14 +7,30 @@ using UnityEngine.UI;
 public class KeyButton : MonoBehaviour
 {
     public Action<KeyboardLayout> onClick;
+    public KeyboardLayout Layout => layout;
+
     [SerializeField] private KeyboardLayout layout;
-    [SerializeField] private Button m_keyButton;
+    [SerializeField] private Button keyButton;
+
+    [SerializeField] private Image keyImage;
    
-    void Start()
+    void Awake()
     {
-        m_keyButton = GetComponent<Button>();
-        m_keyButton.onClick.AddListener(() => onClick?.Invoke(layout));
+        keyButton = GetComponent<Button>();
+        keyImage = GetComponent<Image>();
+        keyButton.onClick.AddListener(() => onClick?.Invoke(layout));
     }
 
+
+
+    public void SetColor(Color color)
+    {
+        keyImage.color = color;
+    }
+
+    private void OnDisable()
+    {
+        keyButton.onClick.RemoveAllListeners();
+    }
 
 }

@@ -10,9 +10,9 @@ public class LetterBox : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI m_text;
     [SerializeField] private Image m_background;
-    // Update is called once per frame
 
     private bool hasLetter = false;
+    private string currentLetter;
 
     private void Start()
     {
@@ -25,13 +25,13 @@ public class LetterBox : MonoBehaviour
         {
             return false;
         }
-
-        m_text.SetText(letter);
+        currentLetter = letter;
+        m_text.SetText(currentLetter);
         hasLetter = true;
         return true;
     }
 
-    public void ChangeColor(Color color)
+    public void SetColor(Color color)
     {
         m_background.color = color;
     }
@@ -43,8 +43,14 @@ public class LetterBox : MonoBehaviour
             return false;
         }
 
-        m_text.SetText("");
+        currentLetter = "";
+        m_text.SetText(currentLetter);
         hasLetter = false;
         return true;
+    }
+
+    public string GetLetter()
+    {
+        return currentLetter;
     }
 }
